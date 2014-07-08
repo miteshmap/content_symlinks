@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Installation functions for content_symlinks.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function content_symlinks_install() {
+  // We need to launch this module after pathauto in nodeapi, Pathauto has
+  // weight 1, so we set the weight to 2.
+  db_query("UPDATE {system} SET weight = 3 WHERE name = 'content_symlinks'");
+}
