@@ -1,5 +1,12 @@
 <?php
+/**
+ * @file
+ * Content symlinks page to handle menu callback pages.
+ */
 
+/**
+ * Page callback: display symlinks form while adding menu with content_menu.
+ */
 function content_symlinks_add_symlinks_path($form, &$form_state, $node) {
   module_load_include('inc', 'nodesymlinks', 'nodesymlinks');
   menu_node_prepare($node);
@@ -24,8 +31,6 @@ function content_symlinks_add_symlinks_path($form, &$form_state, $node) {
   }
 
   $form['menu']['nodesymlinks'] = array(
-    //'#type' => 'fieldset',
-    // @TODO: Fix this.
     '#type' => 'container',
     '#title' => t('Show in More Locations'),
     '#access' => user_access('administer menu') && user_access('administer nodesymlinks'),
@@ -102,7 +107,7 @@ function content_symlinks_add_symlinks_path($form, &$form_state, $node) {
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => 'submit'
+    '#value' => 'submit',
   );
 
   return $form;
@@ -125,10 +130,8 @@ function content_symlinks_node_form_submit_add($form, &$form_state) {
 }
 
 /**
-* Delete selected symlinks items, submit handler for symlinks at node form.
- *
- * @see nodesymlinks_form_alter()
-*/
+ * Delete selected symlinks items, submit handler for symlinks at node form.
+ */
 function content_symlinks_node_form_submit_delete($form, &$form_state) {
   $form_state['rebuild'] = TRUE;
 
@@ -143,10 +146,12 @@ function content_symlinks_node_form_submit_delete($form, &$form_state) {
       }
     }
     $form_state['nodesymlinks']['item_count'] =- $delete_count;
-
   }
 }
 
+/**
+ * Submit callback.
+ */
 function content_symlinks_add_symlinks_path_submit($form, &$form_state) {
   $node = $form['#node'];
   $node->menu['enabled'] = 1;

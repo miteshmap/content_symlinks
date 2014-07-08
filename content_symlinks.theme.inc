@@ -1,4 +1,8 @@
 <?php
+/**
+ * @file
+ * Theme function for the content_symlinks form.
+ */
 
 /**
  * Theme nodesymlinks form items.
@@ -32,7 +36,7 @@ function theme_content_symlinks_form_items($variables) {
       $fragment = TRUE;
     }
     $row[] = drupal_render($form[$delta]['weight']);
-    $item['link_path'] = 'node/'.$nid.'/mid/'.$form[$delta]['mlid']['#value'];
+    $item['link_path'] = 'node/' . $nid . '/mid/' . $form[$delta]['mlid']['#value'];
     $url = 'admin/structure/menu/manage/' . $item['name'] . '/add';
     $row[] = l(t('select'), $url, array('query' => content_menu_assemble_query_string($item)));
     $rows[] = $row;
@@ -51,9 +55,13 @@ function theme_content_symlinks_form_items($variables) {
   if ($fragment) {
     $header[] = t('Fragment');
   }
-  $header[] = t('');
+  $header[] = '';
   $header[] = t('Weight');
-  $output .= theme('table', array('header' => $header, 'rows' => $rows, 'attributes' => array('id' => 'nodesymlinks-items')));
+  $output .= theme('table', array(
+    'header' => $header,
+    'rows' => $rows,
+    'attributes' => array('id' => 'nodesymlinks-items'),
+  ));
   $output .= drupal_render_children($form);
   $output .= '</div>';
   return $output;

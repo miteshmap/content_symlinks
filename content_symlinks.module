@@ -1,7 +1,11 @@
 <?php
+/**
+ * @file
+ * Content_symlinks module file
+ */
 
 /**
- * Implementation of template_preprocess_views_view_field().
+ * Implements template_preprocess_views_view_field().
  *
  * For views to select exiting content, rewrite the nid field ("select" link)
  * to link to the correct target url and pass through the querystring params.
@@ -15,14 +19,14 @@ function content_symlinks_preprocess_views_view_field(&$vars) {
     $item = content_menu_get_menu_item_from_querystring();
     $item['link_path'] = 'node/' . $field->original_value;
     $url = 'admin/structure/menu/manage/' . $item['name'] . '/add';
-    $new_url = 'admin/structure/menu/manage/add_symlinks/'. $field->original_value;
-    $vars['output'] = l(t('select'), $url, array('query' => content_menu_assemble_query_string($item))) .' | '.
+    $new_url = 'admin/structure/menu/manage/add_symlinks/' . $field->original_value;
+    $vars['output'] = l(t('select'), $url, array('query' => content_menu_assemble_query_string($item))) . ' | ' .
       l(t('Use Symlink'), $new_url, array('query' => content_menu_assemble_query_string($item)));
   }
 }
 
 /**
- * Implementation of hook_menu().
+ * Implements hook_menu().
  */
 function content_symlinks_menu() {
   // Add menu router item for use as target with dummy menu items.
@@ -32,7 +36,7 @@ function content_symlinks_menu() {
     'page arguments' => array('content_symlinks_add_symlinks_path', 5),
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
-    'file' => 'conent_symlinks.pages.inc',
+    'file' => 'content_symlinks.pages.inc',
   );
   return $items;
 }
